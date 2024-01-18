@@ -28,9 +28,26 @@ const users = {
             id: "zap555",
             name: "Dennis",
             job: "Bartender"
+        },
+        {
+            "id": "qwe123",
+            "job": "Zookeeper",
+            "name": "Cindy"
         }
+          
     ]
 };
+
+const addUser = (user) => {
+    users["users_list"].push(user);
+    return user;
+};
+  
+app.post("/users", (req, res) => {
+const userToAdd = req.body;
+addUser(userToAdd);
+res.send();
+});
 
 const findUserByName = (name) => {
     return users["users_list"].filter(
