@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm -w react-frontend run start"
+    "start": "npm -w react-frontend run start",
+    "backend-dev": "npm -w express-backend run dev",
+    "frontend": "npm -w react-frontend run start"
   },
   "author": "",
   "license": "ISC",
