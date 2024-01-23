@@ -39,6 +39,11 @@ const users = {
     ]
 };
 
+const generateRandomId = () => {
+    const randomId = Math.random().toString(36).substring(2, 8);
+    return randomId;
+};
+
 const findUserByName = (name) => {
     return users["users_list"].filter(
       (user) => user["name"] === name
@@ -48,7 +53,11 @@ const findUserByName = (name) => {
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
 
+
 const addUser = (user) => {
+    const randomId = generateRandomId();
+    user.id = randomId;
+    
     users["users_list"].push(user);
     return user;
 };
@@ -108,7 +117,7 @@ app.delete("/users/:id", (req, res) => {
     const id = req.params.id;
     const deleted = deleteUserById(id);
     if (deleted) {
-        res.send("User deleted successfully");
+        res.status(204).send("User deleted successfully");
     } else {
         res.status(404).send("User not found");
     }
@@ -116,8 +125,8 @@ app.delete("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
-    addUser(userToAdd);
-    res.send();
+    const addedUser = addUser(userToAdd);
+    res.status(201).json(addedUser);
 });
 
 app.listen(port, () => {
