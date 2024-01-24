@@ -39,6 +39,8 @@ const users = {
     ]
 };
 
+// --- Controllers --- //
+
 const generateRandomId = () => {
     const randomId = Math.random().toString(36).substring(2, 8);
     return randomId;
@@ -78,7 +80,7 @@ const deleteUserById = (id) => {
 };
 
 
-// Routes //
+// --- Routes --- //
 app.use(cors());
 app.use(express.json());
 
@@ -113,6 +115,12 @@ app.get("/users/:id", (req, res) => {
     }
 });
 
+app.post("/users", (req, res) => {
+    const userToAdd = req.body;
+    const addedUser = addUser(userToAdd);
+    res.status(201).json(addedUser);
+});
+
 app.delete("/users/:id", (req, res) => {
     const id = req.params.id;
     const deleted = deleteUserById(id);
@@ -121,12 +129,6 @@ app.delete("/users/:id", (req, res) => {
     } else {
         res.status(404).send("User not found");
     }
-});
-
-app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    const addedUser = addUser(userToAdd);
-    res.status(201).json(addedUser);
 });
 
 app.listen(port, () => {
