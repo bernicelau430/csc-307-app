@@ -6,6 +6,7 @@ function MyApp() {
     const [characters, setCharacters] = useState([]);
 
     // --- HTTP Requests --- //
+
     function fetchUsers() {
         const promise = fetch("http://localhost:8000/users");
         return promise;
@@ -13,17 +14,18 @@ function MyApp() {
 
     function postUser(person) {
         const promise = fetch("Http://localhost:8000/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(person),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(person),
         });
     
         return promise;
     }
 
     // --- Hooks --- //
+
     function updateList(person) { 
         postUser(person)
             .then((res) => {
@@ -42,7 +44,7 @@ function MyApp() {
     }
 
     function removeOneCharacter(index) {
-        fetch(`http://localhost:8000/users/${characters[index].id}`, {
+        fetch(`http://localhost:8000/users/${characters[index]._id}`, {
             method: "DELETE",
         })
         .then((res) => {
